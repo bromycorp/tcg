@@ -1,0 +1,15 @@
+
+<form class="example-form" [formGroup]="playersFormGroup">
+  <mat-form-field class="example-full-width">
+    <mat-label>Player list</mat-label>
+    <textarea matInput placeholder="" formControlName="playersInputFormControl"></textarea>
+  </mat-form-field>
+
+
+  <button mat-flat-button (click)="transformData()">Transform</button>
+
+  <mat-form-field class="example-full-width">
+    <mat-label>Players tdf</mat-label>
+    <textarea matInput placeholder="" formControlName="playersOutputFormControl"></textarea>
+  </mat-form-field>
+</form>
