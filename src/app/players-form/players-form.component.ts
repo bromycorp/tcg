@@ -53,7 +53,7 @@ export class PlayersFormComponent {
   }
 
   playerToXml(player: string): string {
-    const decomposedPlayer: string[] = player.split(' ');
+    const decomposedPlayer: string[] = player.split('\t');
     console.log(decomposedPlayer);
     return (
       '<player userid="' +
