@@ -11,12 +11,14 @@ import {
 import { MatIconModule } from '@angular/material/icon';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatButtonModule } from '@angular/material/button';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-players-form',
   standalone: true,
   imports: [
     FormsModule,
+    CommonModule,
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
@@ -30,12 +32,34 @@ import { MatButtonModule } from '@angular/material/button';
 })
 export class PlayersFormComponent {
   playersFormGroup: FormGroup;
+  accesCodeList: string[] = ['test'];
+  isCodeInError: boolean = false;
 
   constructor() {
     this.playersFormGroup = new FormGroup({
       playersInputFormControl: new FormControl(),
       playersOutputFormControl: new FormControl(),
+      codeAccesFormControl: new FormControl<string | null>(''),
     });
+
+    this.playersFormGroup
+      .get('codeAccesFormControl')
+      ?.valueChanges.subscribe((value) => {
+        this.isCodeInError = false;
+      });
+  }
+
+  clickTransform(): void {
+    if (
+      this.accesCodeList.find(
+        (code) =>
+          this.playersFormGroup.get('codeAccesFormControl')?.value == code
+      )
+    ) {
+      this.transformData();
+    } else {
+      this.isCodeInError = true;
+    }
   }
 
   transformData(): void {
