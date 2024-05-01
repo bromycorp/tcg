@@ -3,7 +3,7 @@
     "rules": "database.rules.json"
   },
   "hosting": {
-    "public": "dist/tcg",
+    "public": "src",
     "ignore": [
       "firebase.json",
       "**/.*",
