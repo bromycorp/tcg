@@ -3,6 +3,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import {
   Form,
+  FormBuilder,
   FormControl,
   FormGroup,
   FormsModule,
@@ -34,11 +35,12 @@ export class PlayersFormComponent {
   playersFormGroup: FormGroup;
   accesCodeList: string[] = ['test'];
   isCodeInError: boolean = false;
+  trueBool: boolean = true;
 
-  constructor() {
-    this.playersFormGroup = new FormGroup({
+  constructor(private formBuilder: FormBuilder) {
+    this.playersFormGroup = this.formBuilder.group({
       playersInputFormControl: new FormControl(),
-      playersOutputFormControl: new FormControl(),
+      playersOutputFormControl: new FormControl(""),
       codeAccesFormControl: new FormControl<string | null>(''),
     });
 
