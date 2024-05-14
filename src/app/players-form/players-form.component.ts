@@ -12,7 +12,7 @@ import {
 import { MatIconModule } from '@angular/material/icon';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatButtonModule } from '@angular/material/button';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-players-form',
@@ -28,19 +28,20 @@ import { CommonModule } from '@angular/common';
     FormsModule,
     ReactiveFormsModule,
   ],
+  providers: [DatePipe],
   templateUrl: './players-form.component.html',
   styleUrl: './players-form.component.scss',
 })
 export class PlayersFormComponent {
   playersFormGroup: FormGroup;
-  accesCodeList: string[] = ['test'];
+  accesCodeList: string[] = ['testb', 'SROP0524'];
   isCodeInError: boolean = false;
   trueBool: boolean = true;
 
-  constructor(private formBuilder: FormBuilder) {
+  constructor(private formBuilder: FormBuilder, public datepipe: DatePipe) {
     this.playersFormGroup = this.formBuilder.group({
       playersInputFormControl: new FormControl(),
-      playersOutputFormControl: new FormControl(""),
+      playersOutputFormControl: new FormControl(''),
       codeAccesFormControl: new FormControl<string | null>(''),
     });
 
@@ -80,7 +81,11 @@ export class PlayersFormComponent {
 
   playerToXml(player: string): string {
     const decomposedPlayer: string[] = player.split('\t');
-    console.log(decomposedPlayer);
+    const date: Date = new Date();
+    const dateTime: string | null = this.datepipe.transform(
+      date,
+      'MM/dd/yyyy HH:mm:ss'
+    );
     return (
       '<player userid="' +
       decomposedPlayer[3] +
@@ -90,7 +95,11 @@ export class PlayersFormComponent {
       decomposedPlayer[0] +
       '</lastname>\n\t<birthdate>01/01/' +
       decomposedPlayer[2] +
-      '</birthdate>\n\t<creationdate>04/19/2024 23:55:38</creationdate>\n\t<lastmodifieddate>04/19/2024 23:55:38</lastmodifieddate>\n</player>'
+      '</birthdate>\n\t<creationdate>' +
+      dateTime +
+      '</creationdate>\n\t<lastmodifieddate>' +
+      dateTime +
+      '</lastmodifieddate>\n</player>'
     );
   }
 }
