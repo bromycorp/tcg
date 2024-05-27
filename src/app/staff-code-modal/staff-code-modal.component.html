@@ -1,0 +1,10 @@
+<div class="ml-3 mt-3 mr-3 mb-3 flex flex-col">
+  <mat-form-field>
+    <mat-label>Staff Access Code</mat-label>
+    <input matInput [formControl]="codeAccesFormControl" />
+  </mat-form-field>
+  <button mat-flat-button (click)="onClickSubmit()">Submit</button>
+  @if (isCodeInError) {
+    <mat-error>Access code invalid</mat-error>
+  }
+</div>

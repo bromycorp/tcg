@@ -13,6 +13,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatButtonModule } from '@angular/material/button';
 import { CommonModule, DatePipe } from '@angular/common';
+import { accesCodeList } from '../../data/codes';
 
 @Component({
   selector: 'app-players-form',
@@ -34,7 +35,6 @@ import { CommonModule, DatePipe } from '@angular/common';
 })
 export class PlayersFormComponent {
   playersFormGroup: FormGroup;
-  accesCodeList: string[] = ['testb', 'SROP0524'];
   isCodeInError: boolean = false;
   trueBool: boolean = true;
 
@@ -54,7 +54,7 @@ export class PlayersFormComponent {
 
   clickTransform(): void {
     if (
-      this.accesCodeList.find(
+      accesCodeList.find(
         (code) =>
           this.playersFormGroup.get('codeAccesFormControl')?.value == code
       )
