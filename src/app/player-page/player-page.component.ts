@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { MatTabsModule } from '@angular/material/tabs';
 import { PlayerPairingsComponent } from './player-pairings/player-pairings.component';
+import { FIREBASE_OPTIONS } from '@angular/fire/compat';
 
 @Component({
   selector: 'app-player-page',
