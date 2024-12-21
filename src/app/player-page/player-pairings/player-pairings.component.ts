@@ -30,10 +30,9 @@ import { map } from 'rxjs/operators';
 })
 export class PlayerPairingsComponent implements OnInit {
   fileUploads?: any[];
+  pictureOneUrl: FileUpload | null = null;
 
-  constructor(
-    private uploadService: FileUploadService
-  ) {}
+  constructor(private uploadService: FileUploadService) {}
 
   ngOnInit() {
     const headers = new HttpHeaders();
@@ -42,22 +41,21 @@ export class PlayerPairingsComponent implements OnInit {
       .getFiles(6)
       .snapshotChanges()
       .pipe(
-        map((changes) =>
+        map((changes) => {
           // store the key
-          changes.map((c) => ({ key: c.payload.key, ...c.payload.val() }))
-        )
+          console.log(changes)
+          return changes.map((c) => ({ key: c.payload.key, url: c.payload.val() }));
+        })
       )
       .subscribe((fileUploads) => {
-        fileUploads.forEach(file => (
-          console.log("file" +file.file)
-        ))
+        //fileUploads.forEach((file) => console.log('file' + file));
         this.fileUploads = fileUploads;
-        console.log(fileUploads[0].file)
+        this.pictureOneUrl = fileUploads[0]?.url;
+        console.log(this.pictureOneUrl)
+        console.log(fileUploads[0]);
       });
 
     //headers.append('Access-Control-Allow-Origin', 'http://localhost:4200');
     //this.http.get('https://bromycorp-default-rtdb.europe-west1.firebasedatabase.app/',{headers: {'Access-Control-Allow-Origin': '*',},}).subscribe((_) => console.log(_));
   }
-
-  
 }
