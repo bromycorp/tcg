@@ -1,5 +1,5 @@
 <div
-  class="flex flex-row flex-nowrap justify-between items-center min-h-12 bg-cyan-300"
+  class="flex flex-row flex-nowrap justify-between items-center min-h-20 bg-cyan-300"
 >
   <div class="ml-1 flex flex-row items-center">
     <button
@@ -7,16 +7,17 @@
       color="primary"
       aria-label="Example icon button with a home icon"
       class="mr-2"
+      (click)="navigateToHome()"
     >
       <mat-icon>home</mat-icon>
     </button>
     <button mat-flat-button class="mr-2" (click)="navigateToPlayer()">
-      Player
+      <span class="text-2xl">Player</span>
     </button>
-    <button mat-flat-button class="mr-2" (click)="clickOnStaff()">Staff</button>
+    <button mat-flat-button class="mr-2" (click)="clickOnStaff()"><span class="text-2xl">Staff</span></button>
   </div>
   <div class="">
-    <span class="text-3xl font-bold">tcg compagnon</span>
+    <span class="text-5xl font-bold">tcg compagnon</span>
   </div>
   <div class="">
     <span>made by Bromy - V {{ vers }}</span>

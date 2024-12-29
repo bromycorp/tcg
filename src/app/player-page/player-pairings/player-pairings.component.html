@@ -1,1 +1,11 @@
-<img [src]="pictureOneUrl" referrerpolicy="no-referrer">
+<mat-tab-group mat-stretch-tabs="false" mat-align-tabs="start">
+    @for (file of fileUploads; track file; let index = $index) {
+        <mat-tab [label]="file.key">
+            <img [src]="file.url" referrerpolicy="no-referrer" />
+    
+          
+        </mat-tab>
+      }
+</mat-tab-group>
+
+<!--img [src]="pictureOneUrl" referrerpolicy="no-referrer" /-->

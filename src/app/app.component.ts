@@ -64,4 +64,8 @@ export class AppComponent {
   navigateToPlayer(): void {
     this.router.navigate(['/player']);
   }
+  
+  navigateToHome(): void {
+    this.router.navigate(['/']);
+  }
 }
