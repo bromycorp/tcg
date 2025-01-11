@@ -1,1 +1,19 @@
-<p>pairings-upload works!</p>
+<form class="m-5 flex flex-row items-center">
+  <mat-checkbox
+    class="mr-5"
+    [(ngModel)]="isStandingsChecked"
+    [ngModelOptions]="{ standalone: true }"
+    (click)="updateInput()"
+    >Standings ?</mat-checkbox
+  >
+
+  <mat-form-field class="mr-5">
+    <mat-label>File Name</mat-label>
+    <input matInput [formControl]="fileNameFormControl" />
+  </mat-form-field>
+  <input type="file" class="mr-5" (change)="selectFile($event)" />
+
+  <button mat-flat-button [disabled]="!selectedFiles" (click)="upload()">
+    Upload
+  </button>
+</form>

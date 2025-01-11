@@ -44,6 +44,7 @@ export class PlayerPairingsComponent implements OnInit {
         })
       )
       .subscribe((fileUploads) => {
+        console.log(fileUploads)
         this.fileUploads = fileUploads;
         this.pictureOneUrl = fileUploads[0]?.url;
       });
