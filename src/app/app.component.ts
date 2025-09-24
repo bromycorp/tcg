@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {
   Router,
   RouterLink,
@@ -20,9 +20,11 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { FormsModule } from '@angular/forms';
+import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { StaffCodeModalComponent } from './staff-code-modal/staff-code-modal.component';
 import { version } from './data/version';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -38,34 +40,56 @@ import { version } from './data/version';
     FormsModule,
     RouterLink,
     RouterLinkActive,
-  ],
+    ReactiveFormsModule,
+],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'tcg';
   vers = version;
   isStaffCodeInputVisible: boolean = false;
+  popidFound: BehaviorSubject <boolean> = new BehaviorSubject<boolean>(this.isPopidAlreadySaved());
+  popidFormControl = new FormControl<string>({
+      value: '',
+      disabled: false,
+    });
+  
 
   constructor(private router: Router, private dialog: MatDialog) {}
 
-  navigateToStaff(): void {
-    this.router.navigate(['/staff']);
+  ngOnInit() {
+    this.setPopidFound();
   }
 
-  clickOnStaff(): void {
-    const dialogRef = this.dialog.open(StaffCodeModalComponent);
-
-    dialogRef.afterClosed().subscribe((result) => {
-      //
-    });
+  savePopid(): void {
+    localStorage.setItem('popid', this.getPopidValue());
+    this.setPopidFound();
+    this.popidFormControl.disable();
   }
 
-  navigateToPlayer(): void {
-    this.router.navigate(['/player']);
+  resetPopid(): void {
+    localStorage.removeItem('popid');
+    this.setPopidFound();
+    this.popidFormControl.enable();
   }
-  
-  navigateToHome(): void {
-    this.router.navigate(['/']);
+
+  getPopidValue(): string {
+    return this.popidFormControl?.value == null
+      ? ''
+      : this.popidFormControl?.value;
+  }
+
+  isPopidAlreadySaved(): boolean {
+    return localStorage.getItem('popid') !== null;
+  }
+
+  getStoredPopid(): string | null {
+    return localStorage.getItem('popid');
+  }
+
+  setPopidFound(): void {
+    this.popidFound.next(this.isPopidAlreadySaved());
+    if (this.isPopidAlreadySaved()) {this.popidFormControl.disable()};
   }
 }

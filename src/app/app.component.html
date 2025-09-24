@@ -2,7 +2,18 @@
   class="flex flex-row flex-nowrap justify-between items-center min-h-20 banner-color"
 >
   <div class="ml-1 flex flex-row items-center">
-    
+    <form class="m-5 flex flex-row items-center">
+      <mat-form-field class="mr-5">
+        <mat-label>{{popidFound.getValue() ? getStoredPopid() : 'Player ID'}}</mat-label>
+        <input matInput [formControl]="popidFormControl" />
+      </mat-form-field>
+      @if (!popidFound.getValue()) {<button mat-flat-button (click)="savePopid()">
+        Save
+      </button>}
+      @if (popidFound.getValue()) {<button mat-flat-button (click)="resetPopid()">
+        Reset
+      </button>}
+    </form>
   </div>
   <div class="">
     <span class="text-5xl font-bold text-white">tcg compagnon</span>
