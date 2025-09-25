@@ -90,6 +90,9 @@ export class AppComponent implements OnInit {
 
   setPopidFound(): void {
     this.popidFound.next(this.isPopidAlreadySaved());
-    if (this.isPopidAlreadySaved()) {this.popidFormControl.disable()};
+    if (this.isPopidAlreadySaved()) {
+      this.popidFormControl.disable();
+      this.popidFormControl.setValue(localStorage.getItem('popid'))
+    };
   }
 }

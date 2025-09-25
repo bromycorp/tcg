@@ -5,12 +5,14 @@ import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { Observable } from 'rxjs';
 import { finalize } from 'rxjs/operators';
 import { FileUpload } from '../models/fileupload';
+import { Tournament } from '../models/tournament';
 
 @Injectable({
   providedIn: 'root'
 })
 export class FileUploadService {
   private basePath = "/";
+  private tournametsPath = "/tournaments/";
 
   constructor(private db: AngularFireDatabase, private storage: AngularFireStorage) { }
 
@@ -47,6 +49,10 @@ export class FileUploadService {
         this.deleteFileStorage(fileUpload.name);
       })
       .catch(error => console.log(error));
+  }
+
+  createNewTournament(tournament: Tournament, tournamentId: string | null): void {
+    this.db.object(`${this.tournametsPath}/${tournamentId}`).set({tournament})
   }
 
   private deleteFileDatabase(key: string): Promise<void> {

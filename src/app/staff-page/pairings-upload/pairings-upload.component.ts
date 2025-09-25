@@ -7,6 +7,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { Tournament } from '../../models/tournament';
 
 @Component({
   selector: 'app-pairings-upload',
@@ -32,6 +33,14 @@ export class PairingsUploadComponent {
   fileNameFormControl = new FormControl<string>({
     value: '',
     disabled: this.isInputNameDisabled(),
+  });
+  tournamentNameFormControl = new FormControl<string>({
+    value: '',
+    disabled: false,
+  });
+  tournamentIdFormControl = new FormControl<string>({
+    value: '',
+    disabled: false,
   });
 
   constructor(private uploadService: FileUploadService) {}
@@ -79,5 +88,14 @@ export class PairingsUploadComponent {
     this.isInputNameDisabled()
       ? this.fileNameFormControl.disable()
       : this.fileNameFormControl.enable();
+  }
+
+  createTournament(): void {
+    const tournament: Tournament = {
+      name: this.tournamentNameFormControl.value,
+      playerNumber: 12,
+      players: []
+    }
+    this.uploadService.createNewTournament(tournament, this.tournamentIdFormControl.value);
   }
 }

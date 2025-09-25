@@ -4,7 +4,7 @@
   <div class="ml-1 flex flex-row items-center">
     <form class="m-5 flex flex-row items-center">
       <mat-form-field class="mr-5">
-        <mat-label>{{popidFound.getValue() ? getStoredPopid() : 'Player ID'}}</mat-label>
+        <mat-label>Player ID</mat-label>
         <input matInput [formControl]="popidFormControl" />
       </mat-form-field>
       @if (!popidFound.getValue()) {<button mat-flat-button (click)="savePopid()">
